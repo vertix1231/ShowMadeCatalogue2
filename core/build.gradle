@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+apply from: '../shared_dependencies.gradle'
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug{
+            buildConfigField "String", "TABLE_NAME", '"table_MadeCatalogue"'
+            buildConfigField "String", "GAMEMADE_API_KEY", '"b791038295cf4d71930a98e13fea466a"'
+            buildConfigField "String", "DATABASE_NAME", '"MadeCatalogue.db"'
+
+            minifyEnabled true
+//            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            buildConfigField "String", "TABLE_NAME", '"table_MadeCatalogue"'
+            buildConfigField "String", "GAMEMADE_API_KEY", '"b791038295cf4d71930a98e13fea466a"'
+            buildConfigField "String", "DATABASE_NAME", '"MadeCatalogue.db"'
+
+            minifyEnabled true
+//            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+
+    //ROOM
+    implementation"androidx.room:room-runtime:2.3.0"
+    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    // To use Kotlin annotation processing tool (kapt)
+    kapt"androidx.room:room-compiler:2.3.0"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation"androidx.room:room-ktx:2.3.0"
+    // optional - Test helpers
+    testImplementation("androidx.room:room-testing:2.3.0")
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    //Courotine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+
+    //LiveCycle
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+
+    //security related
+    implementation "androidx.security:security-crypto:1.1.0-alpha02"
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
+
+    //SQLCipher for enkripsi
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.1.0"
+
+}

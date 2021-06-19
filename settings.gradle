@@ -1,0 +1,4 @@
+rootProject.name = "ShowMadeCatalogue"
+include ':app'
+include ':core'
+include ':mapsfavorite'

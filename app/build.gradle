@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+//    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+apply from: '../shared_dependencies.gradle'
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.dicoding.bangkit.android.expert.showmadecatalogue"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug{
+            buildConfigField "String", "TABLE_NAME", '"table_MadeCatalogue"'
+            buildConfigField "String", "GAMEMADE_API_KEY", '"b791038295cf4d71930a98e13fea466a"'
+            buildConfigField "String", "DATABASE_NAME", '"MadeCatalogue.db"'
+
+            minifyEnabled true
+//            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+
+        }
+        release {
+            buildConfigField "String", "TABLE_NAME", '"table_MadeCatalogue"'
+            buildConfigField "String", "GAMEMADE_API_KEY", '"b791038295cf4d71930a98e13fea466a"'
+            buildConfigField "String", "DATABASE_NAME", '"MadeCatalogue.db"'
+
+            minifyEnabled true
+//            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+
+        compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+    dynamicFeatures = [':mapsfavorite']
+}
+
+dependencies {
+    implementation project(":core")
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+
+    //security related
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
+
+    //leak canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+}
